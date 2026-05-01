@@ -27,11 +27,8 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      "expo-router",
       "expo-secure-store",
       "expo-image-picker",
-      "expo-file-system",
-      "expo-av",
       "expo-notifications"
     ],
     "extra": {
