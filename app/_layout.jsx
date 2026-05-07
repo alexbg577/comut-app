@@ -27,8 +27,17 @@ export default function RootLayout() {
   useEffect(() => {
     if (isLoading) return;
     const inAuth = segments[0] === '(auth)';
-    if (!user && !inAuth) router.replace('/(auth)/welcome');
-    else if (user && inAuth) router.replace('/(tabs)/publication');
+    const isRoot = segments.length === 0;
+
+    if (!user) {
+      if (!inAuth) router.replace('/(auth)/welcome');
+    } else {
+      // Root "comut:///" → tabs
+      if (isRoot) router.replace('/(tabs)/publication');
+      // Dans l'auth MAIS avec un groupe → tabs
+      else if (inAuth && user.groupId) router.replace('/(tabs)/publication');
+      // Sinon (dans auth sans groupe, ou déjà dans tabs) → on reste
+    }
   }, [user, isLoading, segments]);
 
   if (isLoading) return null;

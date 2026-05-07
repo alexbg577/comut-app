@@ -47,22 +47,22 @@ export default function TabLayout() {
 
 const styles = StyleSheet.create({
   tabBar: {
-    height: 80,
+    height: 85,
     backgroundColor: '#fff',
     borderTopWidth: 1,
-    borderTopColor: '#f3f4f6',
+    borderTopColor: '#e5e7eb',
     paddingTop: 8,
-    paddingBottom: 16,
+    paddingBottom: 20,
     elevation: 20,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: -4 },
-    shadowOpacity: 0.06,
+    shadowOpacity: 0.08,
     shadowRadius: 16
   },
-  tabItem: { alignItems: 'center', gap: 3, paddingHorizontal: 12, paddingVertical: 6, borderRadius: 12 },
+  tabItem: { alignItems: 'center', gap: 4, paddingHorizontal: 16, paddingVertical: 6, borderRadius: 12 },
   tabItemFocused: { backgroundColor: '#eef2ff' },
-  tabIcon: { fontSize: 22 },
+  tabIcon: { fontSize: 26 },
   tabIconFocused: {},
-  tabLabel: { fontSize: 10, color: '#9ca3af', fontWeight: '500' },
-  tabLabelFocused: { color: '#6366f1', fontWeight: '700' }
+  tabLabel: { fontSize: 12, color: '#6b7280', fontWeight: '600' },
+  tabLabelFocused: { color: '#6366f1', fontWeight: '800' }
 });
