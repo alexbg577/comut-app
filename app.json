@@ -37,6 +37,17 @@
         {
           "initialOrientation": "DEFAULT"
         }
+      ],
+      "expo-system-ui",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "compileSdkVersion": 34,
+            "targetSdkVersion": 34,
+            "buildToolsVersion": "34.0.0"
+          }
+        }
       ]
     ],
     "experiments": {
