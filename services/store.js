@@ -35,7 +35,7 @@ const useStore = create((set, get) => ({
         set({ user: data.user });
       }
     } catch (_) {
-      await SecureStore.deleteItemAsync('comut_token');
+      // Ne pas supprimer le token si c'est une erreur réseau
     } finally {
       set({ isLoading: false });
     }

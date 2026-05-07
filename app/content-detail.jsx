@@ -34,8 +34,11 @@ export default function ContentDetail() {
     try {
       const { data } = await getContents({});
       const found = data.contents.find(c => c._id === id);
+      if (!found) return Alert.alert('Erreur', 'Contenu introuvable', [{ text: 'Retour', onPress: () => router.back() }]);
       setContent(found);
-    } catch (_) {}
+    } catch (_) {
+      Alert.alert('Erreur', 'Impossible de charger le contenu', [{ text: 'Retour', onPress: () => router.back() }]);
+    }
   };
 
   const fetchComments = async () => {

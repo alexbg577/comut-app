@@ -4,6 +4,7 @@ import {
   ActivityIndicator, Image
 } from 'react-native';
 import { Video, Audio } from 'expo-av';
+import { LinearGradient } from 'expo-linear-gradient';
 import { getShorts, likeContent, favoriteContent } from '../../services/api';
 import useStore from '../../services/store';
 
@@ -29,21 +30,25 @@ export default function ShortsScreen() {
   }, []);
 
   const handleLike = async (id) => {
-    const { data } = await likeContent(id);
-    setShorts(prev => prev.map(s => s._id === id ? {
-      ...s,
-      likes: data.liked ? [...(s.likes || []), user._id] : (s.likes || []).filter(l => l !== user._id)
-    } : s));
+    try {
+      const { data } = await likeContent(id);
+      setShorts(prev => prev.map(s => s._id === id ? {
+        ...s,
+        likes: data.liked ? [...(s.likes || []), user._id] : (s.likes || []).filter(l => l !== user._id)
+      } : s));
+    } catch (_) {}
   };
 
   const handleFav = async (id) => {
-    await favoriteContent(id);
-    setShorts(prev => prev.map(s => s._id === id ? {
-      ...s,
-      favorites: (s.favorites || []).includes(user._id)
-        ? (s.favorites || []).filter(f => f !== user._id)
-        : [...(s.favorites || []), user._id]
-    } : s));
+    try {
+      await favoriteContent(id);
+      setShorts(prev => prev.map(s => s._id === id ? {
+        ...s,
+        favorites: (s.favorites || []).includes(user._id)
+          ? (s.favorites || []).filter(f => f !== user._id)
+          : [...(s.favorites || []), user._id]
+      } : s));
+    } catch (_) {}
   };
 
   const onViewableItemsChanged = useCallback(({ viewableItems }) => {
@@ -75,7 +80,7 @@ export default function ShortsScreen() {
         )}
 
         {/* Overlay gradient */}
-        <View style={styles.overlay} />
+        <LinearGradient colors={['transparent', 'rgba(0,0,0,0.7)']} style={styles.overlay} />
 
         {/* Info */}
         <View style={styles.infoWrap}>
@@ -165,7 +170,7 @@ const styles = StyleSheet.create({
   itemContainer: { width, height: ITEM_HEIGHT, backgroundColor: '#000', position: 'relative' },
   media: { ...StyleSheet.absoluteFillObject },
   photoContainer: { ...StyleSheet.absoluteFillObject },
-  overlay: { ...StyleSheet.absoluteFillObject, background: 'transparent', backgroundImage: 'linear-gradient(transparent 50%, rgba(0,0,0,0.7))', backgroundColor: 'transparent' },
+  overlay: { ...StyleSheet.absoluteFillObject },
   infoWrap: { position: 'absolute', bottom: 100, left: 16, right: 80, gap: 8 },
   uploaderRow: { flexDirection: 'row', alignItems: 'center', gap: 10 },
   avatarCircle: { width: 40, height: 40, borderRadius: 20, backgroundColor: '#6366f1', alignItems: 'center', justifyContent: 'center', borderWidth: 2, borderColor: '#fff' },

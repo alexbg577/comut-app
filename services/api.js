@@ -3,7 +3,7 @@ import * as SecureStore from 'expo-secure-store';
 
 const BASE_URL = 'https://comut-backend.onrender.com/api';
 
-const api = axios.create({ baseURL: BASE_URL, timeout: 30000 });
+const api = axios.create({ baseURL: BASE_URL, timeout: 10000 });
 
 api.interceptors.request.use(async (config) => {
   const token = await SecureStore.getItemAsync('comut_token');

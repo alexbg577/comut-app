@@ -17,8 +17,9 @@ export default function GroupChoiceScreen() {
     setLoading(true);
     try {
       const { data } = await createGroup(groupName.trim());
+      if (!data?.group) throw new Error('Réponse invalide du serveur');
       setGroup(data.group);
-      updateUser({ ...user, groupId: data.group._id });
+      updateUser({ ...user, groupId: data.group._id || data.group.id });
       setModal(null);
       router.replace('/(tabs)/publication');
     } catch (e) {
@@ -33,8 +34,9 @@ export default function GroupChoiceScreen() {
     setLoading(true);
     try {
       const { data } = await joinGroup(groupCode.trim().toUpperCase());
+      if (!data?.group) throw new Error('Réponse invalide du serveur');
       setGroup(data.group);
-      updateUser({ ...user, groupId: data.group._id });
+      updateUser({ ...user, groupId: data.group._id || data.group.id });
       setModal(null);
       router.replace('/(tabs)/publication');
     } catch (e) {

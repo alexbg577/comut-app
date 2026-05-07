@@ -19,7 +19,6 @@ export default function RootLayout() {
     const unsub = NetInfo.addEventListener((state) => {
       const online = !!state.isConnected;
       setOnline(online);
-      if (online) syncAll();
     });
     return () => unsub();
   }, []);
